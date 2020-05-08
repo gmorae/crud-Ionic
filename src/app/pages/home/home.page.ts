@@ -28,12 +28,14 @@ export class HomePage implements OnInit {
     this.devs = [
       {
         id: 1,
-        name: 'item 1',
-        image: 'https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y'
+        name: 'Gabriel Moraes Martins',
+        office: 'Desenvolvedor Front end Pleno',
+        image: 'https://avatars0.githubusercontent.com/u/41982298?v=4'
       },
       {
         id: 2,
-        name: 'item 2',
+        name: 'Usuário qualquer',
+        office: 'Desenvolvedor Back end Pleno',
         image: 'https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y',
       }
     ]
@@ -42,34 +44,34 @@ export class HomePage implements OnInit {
   }
 
   // ********************* Função para mostrar o menu ao clicar no usuário ********************* //
-  async presentActionSheet(id: number) {
+  async presentActionSheet(id: number, name: string) {
     const actionSheet = await this._action.create({
       header: 'Ações',
       buttons: [
         {
-          text: 'Delete',
+          text: `Deletar ${name}`,
           icon: 'trash-outline',
           role: 'destructive',
           handler: () => {
-            this.alertDelete('Excluir', 'Tem certeza que quer excluir esse usuário ?')
+            this.alertDelete('Excluir', `Tem certeza que quer excluir ${name} ?`)
           }
         },
         {
-          text: 'Editar',
+          text: `Editar ${name}`,
           icon: 'pencil-outline',
           handler: () => {
             this._route.navigateByUrl(`logged/edit/${id}`)
           }
         },
         {
-          text: 'informações',
+          text: `Informações sobre ${name}`,
           icon: 'information-outline',
           handler: () => {
             console.log('Favorite clicked');
           }
         },
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           icon: 'close',
           role: 'cancel',
           handler: () => {
@@ -120,7 +122,11 @@ export class HomePage implements OnInit {
     if (val && val.trim() != '') {
       this.devs = this.Alldevs
       this.devs = this.devs.filter((dev) => {
-        return (dev.name.toLowerCase().indexOf(val.toLowerCase()) > -1)
+        return (
+          dev.name.toLowerCase().indexOf(val.toLowerCase()) > -1 
+          || 
+          dev.office.toLowerCase().indexOf(val.toLowerCase()) > -1
+        )
       })
     } else {
       this.devs = this.Alldevs

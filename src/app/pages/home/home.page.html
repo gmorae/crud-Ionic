@@ -1,21 +1,33 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Bem Vindo, nome</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content [fullscreen]="true">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title color="primary">Usuários cadastrados</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-searchbar placeholder="Busque por devs aqui..."
-                [(ngModel)]="searchDevs"
-                (ionInput)=filterDevs($event)
-                clearInput>
-  </ion-searchbar>
   <ion-list>
+    <ion-searchbar placeholder="Busque por devs aqui..." [(ngModel)]="searchDevs" (ionInput)=filterDevs($event)
+      clearInput>
+    </ion-searchbar>
+    <ion-list-header>
+      Todos os devs
+    </ion-list-header>
     <ion-item *ngFor="let i of devs" no-lines>
       <ion-avatar slot="start">
         <img [src]="i.image" alt="image of i.name">
       </ion-avatar>
-      <ion-label>{{i.name}}</ion-label>
-      <ion-icon (click)="presentActionSheet(i.id)" slot="end" name="menu-outline"></ion-icon>
+      <ion-label>
+        <h2>{{i.name}}</h2>
+        <p>{{i.office}}</p>
+      </ion-label>
+      <ion-icon (click)="presentActionSheet(i.id, i.name)" slot="end" name="menu-outline"></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button>
+    <ion-tab-button tab="create">
+      <ion-icon name="add"></ion-icon>
+    </ion-tab-button>
+  </ion-fab-button>
+</ion-fab>
