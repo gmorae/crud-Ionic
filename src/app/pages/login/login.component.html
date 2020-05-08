@@ -1,0 +1,20 @@
+<ion-content [fullscreen]="true">
+  <div id="content">
+    <ion-header class="ion-title">
+      <ion-title color="primary">Acesse sua conta</ion-title>
+    </ion-header>
+    <form>
+      <ion-item class="item">
+        <ion-input [(ngModel)]="login.user" name="user" placeholder="Usuário"></ion-input>
+      </ion-item>
+      <ion-item class="item">
+        <ion-input type="password" [(ngModel)]="login.password" name="password" placeholder="Senha"></ion-input>
+      </ion-item>
+      <ion-item (click)="logForm()" button class="button" expand="block" color="primary">Logar</ion-item>
+    </form>
+    <ion-item line="none" color="tertiary" detail button (click)="createUser()">
+      Não é cadastrado ? cadastre-se
+    </ion-item>
+
+  </div>
+</ion-content>
