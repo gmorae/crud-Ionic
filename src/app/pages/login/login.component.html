@@ -1,9 +1,19 @@
 <ion-content [fullscreen]="true">
+  <ion-header>
+    <h2>COMPRE AQUI</h2>
+    <ion-segment [(ngModel)]="active" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="Login">
+        <ion-label>Login</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Registrar">
+        <ion-label>Cadastrar</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-header>
+
   <div id="content">
-    <ion-header class="ion-title">
-      <ion-title color="primary">Acesse sua conta</ion-title>
-    </ion-header>
-    <form>
+    <h1 class="ion-title">{{title ? title : active}}</h1>
+    <form *ngIf="title === 'Login' || active === 'Login'">
       <ion-item class="item">
         <ion-input [(ngModel)]="login.user" name="user" placeholder="Usuário"></ion-input>
       </ion-item>
@@ -12,9 +22,18 @@
       </ion-item>
       <ion-item (click)="logForm()" button class="button" expand="block" color="primary">Logar</ion-item>
     </form>
-    <ion-item line="none" color="tertiary" detail button (click)="createUser()">
-      Não é cadastrado ? cadastre-se
-    </ion-item>
-
+    <form *ngIf="title === 'Registrar'">
+      <ion-item class="item">
+        <ion-input [(ngModel)]="register.user" name="user" placeholder="Usuário"></ion-input>
+      </ion-item>
+      <ion-item class="item">
+        <ion-input type="password" [(ngModel)]="register.password" name="password" placeholder="Senha"></ion-input>
+      </ion-item>
+      <ion-item class="item">
+        <ion-input type="password" [(ngModel)]="register.confirmPassword" name="password"
+          placeholder="Confirmação de senha"></ion-input>
+      </ion-item>
+      <ion-item (click)="registerForm()" button class="button" expand="block" color="primary">Cadastrar</ion-item>
+    </form>
   </div>
 </ion-content>

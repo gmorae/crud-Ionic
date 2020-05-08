@@ -12,14 +12,33 @@ export class LoginComponent implements OnInit {
     password: ''
   }
 
+  register: any = {
+    user: '',
+    password: '',
+    confirmPassword: '',
+  }
+
+  title: string = ''
+
+  active = 'Login'
+
   constructor(
-    private _router: Router 
+    private _router: Router
   ) { }
 
   ngOnInit() { }
 
   logForm() {
     this._router.navigateByUrl('/logged')
+  }
+
+  registerForm() {
+
+  }
+
+  segmentChanged(ev: any) {
+    console.log(ev);
+    this.title= ev.detail.value
   }
 
 }
