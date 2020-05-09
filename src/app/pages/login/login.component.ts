@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { loginModel, formModel } from 'src/app/models/Dev.model';
 
 @Component({
   selector: 'app-login',
@@ -7,15 +8,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  login: any = {
-    user: '',
+  login: loginModel = {
+    username: '',
     password: ''
   }
 
-  register: any = {
-    user: '',
+  register: formModel = {
+    username: '',
+    office: '',
     password: '',
     confirmPassword: '',
+    linkImage: ''
   }
 
   title: string = ''

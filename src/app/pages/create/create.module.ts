@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CreateRoutingModule } from './create-routing.module';
 import { CreateComponent } from './create.component';
 import { IonicModule } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { IonicModule } from '@ionic/angular';
   imports: [
     CommonModule,
     CreateRoutingModule,
-    IonicModule
+    IonicModule,
+    FormsModule
   ]
 })
 export class CreateModule { }

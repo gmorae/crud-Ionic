@@ -24,7 +24,10 @@
     </form>
     <form *ngIf="title === 'Registrar'">
       <ion-item class="item">
-        <ion-input [(ngModel)]="register.user" name="user" placeholder="Usuário"></ion-input>
+        <ion-input [(ngModel)]="register.username" name="user" placeholder="Usuário"></ion-input>
+      </ion-item>
+      <ion-item class="item">
+        <ion-input [(ngModel)]="register.office" name="office" placeholder="Cargo"></ion-input>
       </ion-item>
       <ion-item class="item">
         <ion-input type="password" [(ngModel)]="register.password" name="password" placeholder="Senha"></ion-input>
@@ -32,6 +35,10 @@
       <ion-item class="item">
         <ion-input type="password" [(ngModel)]="register.confirmPassword" name="password"
           placeholder="Confirmação de senha"></ion-input>
+      </ion-item>
+      <ion-item class="item">
+        <ion-input [(ngModel)]="register.linkImage" name="image"
+          placeholder="Link da imagem"></ion-input>
       </ion-item>
       <ion-item (click)="registerForm()" button class="button" expand="block" color="primary">Cadastrar</ion-item>
     </form>

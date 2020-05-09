@@ -1,5 +1,26 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title color="primary">{{title}}</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-content id="content" [fullscreen]="true">
+  <form>
+    <ion-item class="item">
+      <ion-input required [(ngModel)]="register.username" name="user" placeholder="Usuário"></ion-input>
+    </ion-item>
+    <ion-item class="item">
+      <ion-input required [(ngModel)]="register.office" name="office" placeholder="Cargo"></ion-input>
+    </ion-item>
+    <ion-item class="item">
+      <ion-input required type="password" [(ngModel)]="register.password" name="password" placeholder="Senha"></ion-input>
+    </ion-item>
+    <ion-item class="item">
+      <ion-input required type="password" [(ngModel)]="register.confirmPassword" name="password"
+        placeholder="Confirmação de senha"></ion-input>
+    </ion-item>
+    <ion-item class="item">
+      <ion-input required [(ngModel)]="register.linkImage" name="image" placeholder="Link da imagem"></ion-input>
+    </ion-item>
+    <ion-item (click)="registerForm()" button class="button" expand="block" color="primary">Cadastrar</ion-item>
+  </form>
+</ion-content>

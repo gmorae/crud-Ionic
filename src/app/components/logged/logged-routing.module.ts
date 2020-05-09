@@ -22,4 +22,8 @@ export const privateRoutes: Array<Route> = [
     path: 'information',
     loadChildren: () => import('../../pages/information/information.module').then(m => m.InformationModule)
   },
+  {
+    path: 'config',
+    loadChildren: () => import('../../pages/config/config.module').then(m => m.ConfigModule)
+  }
 ];

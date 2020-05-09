@@ -64,13 +64,6 @@ export class HomePage implements OnInit {
           }
         },
         {
-          text: `Informações sobre ${name}`,
-          icon: 'information-outline',
-          handler: () => {
-            console.log('Favorite clicked');
-          }
-        },
-        {
           text: 'Cancelar',
           icon: 'close',
           role: 'cancel',
