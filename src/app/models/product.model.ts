@@ -1,7 +1,7 @@
 export interface formModel {
     name: string;
     category: string;
-    value: string;
+    value: number;
     linkImage: string
 }
 

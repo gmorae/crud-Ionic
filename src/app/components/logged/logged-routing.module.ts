@@ -11,7 +11,7 @@ export const privateRoutes: Array<Route> = [
     path: 'home',
     loadChildren: () => import('../../pages/home/home.module').then(m => m.HomePageModule),
     resolve: {
-      devs: ProductResolve
+      products: ProductResolve
     }
   },
   {

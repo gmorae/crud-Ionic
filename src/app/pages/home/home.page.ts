@@ -11,7 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class HomePage implements OnInit {
 
-  searchDevs: string
+  searchProducts: string
   nameLogged: string = ''
   allProducts: any
   products: Array<any>
@@ -29,8 +29,8 @@ export class HomePage implements OnInit {
 
   // ********************* Função que será execultada sempre quando o componente for chamdado  ********************* //
   ngOnInit(): void {
-    this.searchDevs = ''
-    this.products = this._activatedRoute.snapshot.data.products
+    this.searchProducts = ''
+    this.products = this._activatedRoute.snapshot.data.products     
     this._storage.get('nameUser').then((val) => {
       this.nameLogged = val
     });
@@ -115,7 +115,7 @@ export class HomePage implements OnInit {
       this.products = this.allProducts
       this.products = this.products.filter((dev) => {
         return (
-          dev.username.toLowerCase().indexOf(val.toLowerCase()) > -1
+          dev.name.toLowerCase().indexOf(val.toLowerCase()) > -1
           ||
           dev.category.toLowerCase().indexOf(val.toLowerCase()) > -1
         )

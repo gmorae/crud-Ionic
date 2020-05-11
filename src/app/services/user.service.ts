@@ -13,8 +13,8 @@ export class UserService {
         private _http: HttpClient
     ) { }
 
-    postUser(Product: registerModel) {
-        return this._http.post(`${environment.api}/`, Product)
+    postUser(user: registerModel) {
+        return this._http.post(`${environment.api}/user`, user)
             .pipe(
                 map((res: any) => {
                     return res

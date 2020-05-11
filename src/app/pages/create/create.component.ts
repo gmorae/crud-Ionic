@@ -17,7 +17,7 @@ export class CreateComponent implements OnInit {
   register: formModel = {
     name: '',
     category: '',
-    value: '',
+    value: 0,
     linkImage: ''
   }
 
@@ -31,39 +31,40 @@ export class CreateComponent implements OnInit {
 
   ngOnInit() {
     this.id = +this._activatedRoute.snapshot.paramMap.get('id')
-    this.id ? this.title = "Editar dev"
-      : this.title = "Cadastrar novo dev"
+    this.id ? this.title = "Editar produto"
+      : this.title = "Cadastrar novo produto"
     this._service.getProductById(this.id)
       .subscribe((res: formModel) => {
         this.register.name = res.name
         this.register.category = res.category
         this.register.value = res.value
         this.register.linkImage = res.linkImage
+        
       })
   }
 
-  registerForm() {
+  async registerForm() {
     if (this.id) {
-      this._service.putProduct(this.id, this.register)
+      await this._service.putProduct(this.id, this.register)
       .subscribe(res => {
         this.Toast(res.message)
         this.register.name = ''
         this.register.category = ''
-        this.register.value = ''
+        this.register.value = 0
         this.register.linkImage = ''
       }, err => {
-        this.alert('Erro', 'Erro ao editar o usuário, tente novamente ou mais tarde')
+        this.alert('Erro', 'Erro ao editar o produto, tente novamente ou mais tarde')
       })
     } else {
-      this._service.postProduct(this.register)
+      await this._service.postProduct(this.register)
         .subscribe(res => {
           this.Toast(res.message)
           this.register.name = ''
           this.register.category = ''
-          this.register.value = ''
+          this.register.value = 0
           this.register.linkImage = ''
         }, err => {
-          this.alert('Erro', 'Erro ao criar o usuário, tente novamente ou mais tarde')
+          this.alert('Erro', 'Erro ao criar o produto, tente novamente ou mais tarde')
         })
     }
     this._router.navigateByUrl('/logged/home')

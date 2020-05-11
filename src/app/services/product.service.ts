@@ -13,17 +13,19 @@ export class ProductService {
         private _http: HttpClient
     ) { }
 
-    getAllProduct(): Observable<listModel> {
-        return this._http.get(`${environment.api}/`)
+    allProducts: listModel[]
+
+    getAllProduct(): Observable<listModel[]> {
+        return this._http.get(`${environment.api}/product/`)
             .pipe(
-                map((res: listModel) => {
-                    return res
+                map((res: listModel[]) => {
+                    return res || this.allProducts
                 })
             )
     }
 
     getProductById(id: number): Observable<formModel> {
-        return this._http.get(`${environment.api}/${id}`)
+        return this._http.get(`${environment.api}/product/${id}`)
             .pipe(
                 map((res: any) => {                    
                     return res[0]
@@ -31,26 +33,18 @@ export class ProductService {
             )
     }
 
-    getProductByName(name: string): Observable<listModel> {
-        return this._http.get(`${environment.api}/${name}`)
-            .pipe(
-                map((res: listModel) => {
-                    return res
-                })
-            )
-    }
-
     postProduct(Product: formModel) {
-        return this._http.post(`${environment.api}/`, Product)
+        return this._http.post(`${environment.api}/product/`, Product)
             .pipe(
                 map((res: any) => {
+                    this.allProducts = res.data
                     return res
                 })
             )
     }
 
     putProduct(id:number ,Product: formModel) {
-        return this._http.put(`${environment.api}/${id}`, Product)
+        return this._http.put(`${environment.api}/product/${id}`, Product)
             .pipe(
                 map((res: any) => {
                     return res
@@ -60,7 +54,7 @@ export class ProductService {
 
 
     deleteProduct(id: number) {
-        return this._http.delete(`${environment.api}/${id}`)
+        return this._http.delete(`${environment.api}/product/${id}`)
             .pipe(
                 map((res: any) => {
                     return res
