@@ -1,6 +1,6 @@
 <ion-header translucent>
   <ion-toolbar>
-    <ion-title>Bem Vindo, nome</ion-title>
+    <ion-title>Bem Vindo, {{nameLogged}}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
@@ -11,15 +11,20 @@
     <ion-list-header>
       Todos os devs
     </ion-list-header>
-    <ion-item *ngFor="let i of devs" no-lines>
-      <ion-avatar slot="start">
-        <img [src]="i.image" alt="image of i.name">
-      </ion-avatar>
-      <ion-label>
-        <h2>{{i.name}}</h2>
-        <p>{{i.office}}</p>
-      </ion-label>
-      <ion-icon (click)="presentActionSheet(i.id, i.name)" slot="end" name="menu-outline"></ion-icon>
+    <div *ngIf="devs">
+      <ion-item *ngFor="let i of devs" no-lines>
+        <ion-avatar slot="start">
+          <img [src]="i.linkImage" alt="image of i.username">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{i.username}}</h2>
+          <p>{{i.office}}</p>
+        </ion-label>
+        <ion-icon (click)="presentActionSheet(i.id_user, i.username)" slot="end" name="menu-outline"></ion-icon>
+      </ion-item>
+    </div>
+    <ion-item *ngIf="!devs">
+      <ion-label>Sem Devs no momento</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

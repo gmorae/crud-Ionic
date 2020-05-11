@@ -2,7 +2,6 @@ export interface formModel {
     username: string;
     office: string;
     password: string;
-    confirmPassword: string;
     linkImage: string
 }
 

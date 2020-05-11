@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController, AlertController } from '@ionic/angular';
+import { LocalStorageService } from 'src/app/services/localStorage.service';
+import { DevService } from 'src/app/services/dev.service';
 
 @Component({
   selector: 'app-config',
@@ -12,7 +14,9 @@ export class ConfigComponent implements OnInit {
   constructor(
     private _router: Router,
     private _toast: ToastController,
-    private _alert: AlertController
+    private _alert: AlertController,
+    private _localStorage: LocalStorageService,
+    private _service: DevService
   ) { }
 
   ngOnInit() {}
@@ -54,6 +58,7 @@ export class ConfigComponent implements OnInit {
   }
 
   logout() {
+    this._localStorage.clear()
     this._router.navigateByUrl('/')
   }
 

@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { DevResolve } from 'src/app/resolve/getDev.resolve';
 
 
 export const privateRoutes: Array<Route> = [
@@ -8,7 +9,10 @@ export const privateRoutes: Array<Route> = [
   },
   {
     path: 'home',
-    loadChildren: () => import('../../pages/home/home.module').then(m => m.HomePageModule)
+    loadChildren: () => import('../../pages/home/home.module').then(m => m.HomePageModule),
+    resolve: {
+      devs: DevResolve
+    }
   },
   {
     path: 'create',

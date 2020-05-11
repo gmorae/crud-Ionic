@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController, AlertController, ToastController } from '@ionic/angular';
-import { Router } from '@angular/router';
-import { __values } from 'tslib';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Storage } from '@ionic/storage';
+import { DevService } from 'src/app/services/dev.service';
 
 @Component({
   selector: 'app-home',
@@ -11,34 +12,28 @@ import { __values } from 'tslib';
 export class HomePage implements OnInit {
 
   searchDevs: string
+  nameLogged: string = ''
   Alldevs: any
   devs: Array<any>
   // ***** any significa qualquer coisa ***** //
 
   constructor(
-    public _action: ActionSheetController,
-    public _alert: AlertController,
-    public _toast: ToastController,
-    public _route: Router
+    private _action: ActionSheetController,
+    private _alert: AlertController,
+    private _toast: ToastController,
+    private _route: Router,
+    private _storage: Storage,
+    private _activatedRoute: ActivatedRoute,
+    private _service: DevService
   ) { }
 
   // ********************* Função que será execultada sempre quando o componente for chamdado  ********************* //
   ngOnInit(): void {
     this.searchDevs = ''
-    this.devs = [
-      {
-        id: 1,
-        name: 'Gabriel Moraes Martins',
-        office: 'Desenvolvedor Front end Pleno',
-        image: 'https://avatars0.githubusercontent.com/u/41982298?v=4'
-      },
-      {
-        id: 2,
-        name: 'Usuário qualquer',
-        office: 'Desenvolvedor Back end Pleno',
-        image: 'https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y',
-      }
-    ]
+    this.devs = this._activatedRoute.snapshot.data.devs
+    this._storage.get('nameUser').then((val) => {
+      this.nameLogged = val
+    });
 
     this.Alldevs = this.devs
   }
@@ -53,7 +48,11 @@ export class HomePage implements OnInit {
           icon: 'trash-outline',
           role: 'destructive',
           handler: () => {
-            this.alertDelete('Excluir', `Tem certeza que quer excluir ${name} ?`)
+            this._service.deleteDev(id)
+              .subscribe(res => {
+                this.devs = res.data
+                this.alertDelete('Excluir', `Tem certeza que quer excluir ${name} ?`)
+              })
           }
         },
         {
@@ -116,8 +115,8 @@ export class HomePage implements OnInit {
       this.devs = this.Alldevs
       this.devs = this.devs.filter((dev) => {
         return (
-          dev.name.toLowerCase().indexOf(val.toLowerCase()) > -1 
-          || 
+          dev.username.toLowerCase().indexOf(val.toLowerCase()) > -1
+          ||
           dev.office.toLowerCase().indexOf(val.toLowerCase()) > -1
         )
       })

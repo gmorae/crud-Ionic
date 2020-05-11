@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { loginModel, formModel } from 'src/app/models/Dev.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { AlertController, ToastController } from '@ionic/angular';
+import { LocalStorageService } from 'src/app/services/localStorage.service';
+import { DevService } from 'src/app/services/dev.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +21,6 @@ export class LoginComponent implements OnInit {
     username: '',
     office: '',
     password: '',
-    confirmPassword: '',
     linkImage: ''
   }
 
@@ -26,22 +29,77 @@ export class LoginComponent implements OnInit {
   active = 'Login'
 
   constructor(
-    private _router: Router
+    private _router: Router,
+    private _service: AuthService,
+    private _alert: AlertController,
+    private _toast: ToastController,
+    private _localStorage: LocalStorageService,
+    private _postService: DevService
   ) { }
 
   ngOnInit() { }
 
   logForm() {
-    this._router.navigateByUrl('/logged')
+    this._service.login(this.login)
+      .subscribe(res => {
+        this.Toast(res.message)
+        this._localStorage.setItem('nameUser', this.login.username)
+        this.login.username = ''
+        this.login.password = ''
+        this._router.navigateByUrl('/logged')
+      }, err => {
+        this.alert('Erro ao acessar', 'Usário ou senha inválidos')
+      })
   }
 
   registerForm() {
+    this._postService.postDev(this.register)
+      .subscribe(res => {
+        this.Toast(res.message)
+        this.active = 'Login'
+        this.register.username = ''
+        this.register.password = ''
+        this.register.office = ''
+        this.register.linkImage = ''
+      }, err => {
+        this.alert('Erro', 'Erro ao criar o usuário, tente novamente ou mais tarde')
+      })
+  }
 
+  async alert(header: string, msg: string) {
+    const alert = await this._alert.create({
+      header: header,
+      message: msg,
+      buttons: [
+        {
+          text: 'Cancelar'
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            this.login.password = ''
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  // ********************* Função para mostrar a mensagem de sucesso ********************* //
+  async Toast(msg: string) {
+    const toast = await this._toast.create({
+      message: msg,
+      duration: 2000,
+      color: 'success',
+      position: 'top',
+    });
+
+    toast.present();
   }
 
   segmentChanged(ev: any) {
-    console.log(ev);
-    this.title= ev.detail.value
+    this.title = ev.detail.value
   }
 
 }
