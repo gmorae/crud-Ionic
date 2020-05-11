@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { formModel } from 'src/app/models/Dev.model';
-import { DevService } from 'src/app/services/dev.service';
+import { formModel } from 'src/app/models/product.model';
+import { ProductService } from 'src/app/services/product.service';
 import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
@@ -15,16 +15,16 @@ export class CreateComponent implements OnInit {
   id: number
 
   register: formModel = {
-    username: '',
-    office: '',
-    password: '',
+    name: '',
+    category: '',
+    value: '',
     linkImage: ''
   }
 
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
-    private _service: DevService,
+    private _service: ProductService,
     private _alert: AlertController,
     private _toast: ToastController
   ) { }
@@ -33,33 +33,34 @@ export class CreateComponent implements OnInit {
     this.id = +this._activatedRoute.snapshot.paramMap.get('id')
     this.id ? this.title = "Editar dev"
       : this.title = "Cadastrar novo dev"
-    this._service.getDevById(this.id)
-      .subscribe(res => {
-        this.register.username = res.username
-        this.register.office = res.office
+    this._service.getProductById(this.id)
+      .subscribe((res: formModel) => {
+        this.register.name = res.name
+        this.register.category = res.category
+        this.register.value = res.value
         this.register.linkImage = res.linkImage
       })
   }
 
   registerForm() {
     if (this.id) {
-      this._service.putDev(this.id, this.register)
+      this._service.putProduct(this.id, this.register)
       .subscribe(res => {
         this.Toast(res.message)
-        this.register.username = ''
-        this.register.password = ''
-        this.register.office = ''
+        this.register.name = ''
+        this.register.category = ''
+        this.register.value = ''
         this.register.linkImage = ''
       }, err => {
         this.alert('Erro', 'Erro ao editar o usuário, tente novamente ou mais tarde')
       })
     } else {
-      this._service.postDev(this.register)
+      this._service.postProduct(this.register)
         .subscribe(res => {
           this.Toast(res.message)
-          this.register.username = ''
-          this.register.password = ''
-          this.register.office = ''
+          this.register.name = ''
+          this.register.category = ''
+          this.register.value = ''
           this.register.linkImage = ''
         }, err => {
           this.alert('Erro', 'Erro ao criar o usuário, tente novamente ou mais tarde')

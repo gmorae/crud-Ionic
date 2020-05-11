@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { listModel, formModel } from '../models/Dev.model';
+import { listModel, formModel } from '../models/Product.model';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
-export class DevService {
+export class ProductService {
     constructor(
         private _http: HttpClient
     ) { }
 
-    getAllDev(): Observable<listModel> {
+    getAllProduct(): Observable<listModel> {
         return this._http.get(`${environment.api}/`)
             .pipe(
                 map((res: listModel) => {
@@ -22,7 +22,7 @@ export class DevService {
             )
     }
 
-    getDevById(id: number): Observable<formModel> {
+    getProductById(id: number): Observable<formModel> {
         return this._http.get(`${environment.api}/${id}`)
             .pipe(
                 map((res: any) => {                    
@@ -31,7 +31,7 @@ export class DevService {
             )
     }
 
-    getDevByName(name: string): Observable<listModel> {
+    getProductByName(name: string): Observable<listModel> {
         return this._http.get(`${environment.api}/${name}`)
             .pipe(
                 map((res: listModel) => {
@@ -40,8 +40,8 @@ export class DevService {
             )
     }
 
-    postDev(dev: formModel) {
-        return this._http.post(`${environment.api}/`, dev)
+    postProduct(Product: formModel) {
+        return this._http.post(`${environment.api}/`, Product)
             .pipe(
                 map((res: any) => {
                     return res
@@ -49,8 +49,8 @@ export class DevService {
             )
     }
 
-    putDev(id:number ,dev: formModel) {
-        return this._http.put(`${environment.api}/${id}`, dev)
+    putProduct(id:number ,Product: formModel) {
+        return this._http.put(`${environment.api}/${id}`, Product)
             .pipe(
                 map((res: any) => {
                     return res
@@ -59,7 +59,7 @@ export class DevService {
     }
 
 
-    deleteDev(id: number) {
+    deleteProduct(id: number) {
         return this._http.delete(`${environment.api}/${id}`)
             .pipe(
                 map((res: any) => {

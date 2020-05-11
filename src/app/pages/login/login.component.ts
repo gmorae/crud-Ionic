@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { loginModel, formModel } from 'src/app/models/Dev.model';
+import { loginModel, registerModel } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { AlertController, ToastController } from '@ionic/angular';
 import { LocalStorageService } from 'src/app/services/localStorage.service';
-import { DevService } from 'src/app/services/dev.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +17,8 @@ export class LoginComponent implements OnInit {
     password: ''
   }
 
-  register: formModel = {
+  register: registerModel = {
     username: '',
-    office: '',
     password: '',
     linkImage: ''
   }
@@ -34,7 +33,7 @@ export class LoginComponent implements OnInit {
     private _alert: AlertController,
     private _toast: ToastController,
     private _localStorage: LocalStorageService,
-    private _postService: DevService
+    private _postService: UserService
   ) { }
 
   ngOnInit() { }
@@ -53,13 +52,12 @@ export class LoginComponent implements OnInit {
   }
 
   registerForm() {
-    this._postService.postDev(this.register)
+    this._postService.postUser(this.register)
       .subscribe(res => {
         this.Toast(res.message)
         this.active = 'Login'
         this.register.username = ''
         this.register.password = ''
-        this.register.office = ''
         this.register.linkImage = ''
       }, err => {
         this.alert('Erro', 'Erro ao criar o usuário, tente novamente ou mais tarde')

@@ -1,6 +1,6 @@
 <ion-content [fullscreen]="true">
   <ion-header>
-    <h2>ENCONTRE DEVS AQUI</h2>
+    <h2>Compre produtos aqui</h2>
     <ion-segment [(ngModel)]="active" (ionChange)="segmentChanged($event)">
       <ion-segment-button value="Login">
         <ion-label>Login</ion-label>
@@ -13,6 +13,7 @@
 
   <div id="content">
     <h1 class="ion-title">{{title ? title : active}}</h1>
+
     <form *ngIf="title === 'Login' || active === 'Login'">
       <ion-item class="item">
         <ion-input [(ngModel)]="login.username" name="user" placeholder="Usuário"></ion-input>
@@ -22,12 +23,10 @@
       </ion-item>
       <ion-item (click)="logForm()" button class="button" expand="block" color="primary">Logar</ion-item>
     </form>
+
     <form *ngIf="title === 'Registrar'">
       <ion-item class="item">
         <ion-input required [(ngModel)]="register.username" name="user" placeholder="Usuário"></ion-input>
-      </ion-item>
-      <ion-item class="item">
-        <ion-input required [(ngModel)]="register.office" name="office" placeholder="Cargo"></ion-input>
       </ion-item>
       <ion-item class="item">
         <ion-input required type="password" [(ngModel)]="register.password" name="password"
@@ -39,5 +38,6 @@
       </ion-item>
       <ion-item (click)="registerForm()" button class="button" expand="block" color="primary">Cadastrar</ion-item>
     </form>
+    
   </div>
 </ion-content>

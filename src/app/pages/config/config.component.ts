@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController, AlertController } from '@ionic/angular';
 import { LocalStorageService } from 'src/app/services/localStorage.service';
-import { DevService } from 'src/app/services/dev.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-config',
@@ -16,7 +16,7 @@ export class ConfigComponent implements OnInit {
     private _toast: ToastController,
     private _alert: AlertController,
     private _localStorage: LocalStorageService,
-    private _service: DevService
+    private _service: ProductService
   ) { }
 
   ngOnInit() {}

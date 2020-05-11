@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActionSheetController, AlertController, ToastController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
-import { DevService } from 'src/app/services/dev.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-home',
@@ -13,8 +13,8 @@ export class HomePage implements OnInit {
 
   searchDevs: string
   nameLogged: string = ''
-  Alldevs: any
-  devs: Array<any>
+  allProducts: any
+  products: Array<any>
   // ***** any significa qualquer coisa ***** //
 
   constructor(
@@ -24,18 +24,18 @@ export class HomePage implements OnInit {
     private _route: Router,
     private _storage: Storage,
     private _activatedRoute: ActivatedRoute,
-    private _service: DevService
+    private _service: ProductService
   ) { }
 
   // ********************* Função que será execultada sempre quando o componente for chamdado  ********************* //
   ngOnInit(): void {
     this.searchDevs = ''
-    this.devs = this._activatedRoute.snapshot.data.devs
+    this.products = this._activatedRoute.snapshot.data.products
     this._storage.get('nameUser').then((val) => {
       this.nameLogged = val
     });
 
-    this.Alldevs = this.devs
+    this.allProducts = this.products
   }
 
   // ********************* Função para mostrar o menu ao clicar no usuário ********************* //
@@ -48,9 +48,9 @@ export class HomePage implements OnInit {
           icon: 'trash-outline',
           role: 'destructive',
           handler: () => {
-            this._service.deleteDev(id)
+            this._service.deleteProduct(id)
               .subscribe(res => {
-                this.devs = res.data
+                this.products = res.data
                 this.alertDelete('Excluir', `Tem certeza que quer excluir ${name} ?`)
               })
           }
@@ -109,19 +109,19 @@ export class HomePage implements OnInit {
   }
 
   // ********************* Função que realiza o filtro de devs ********************* // 
-  filterDevs(text: any) {
+  filterProducts(text: any) {
     let val = text.target.value;
     if (val && val.trim() != '') {
-      this.devs = this.Alldevs
-      this.devs = this.devs.filter((dev) => {
+      this.products = this.allProducts
+      this.products = this.products.filter((dev) => {
         return (
           dev.username.toLowerCase().indexOf(val.toLowerCase()) > -1
           ||
-          dev.office.toLowerCase().indexOf(val.toLowerCase()) > -1
+          dev.category.toLowerCase().indexOf(val.toLowerCase()) > -1
         )
       })
     } else {
-      this.devs = this.Alldevs
+      this.products = this.allProducts
     }
   }
 

@@ -6,13 +6,13 @@
 <ion-content id="content" [fullscreen]="true">
   <form>
     <ion-item class="item">
-      <ion-input required [(ngModel)]="register.username" name="user" placeholder="Usuário"></ion-input>
+      <ion-input required [(ngModel)]="register.name" name="name" placeholder="Nome do produto"></ion-input>
     </ion-item>
     <ion-item class="item">
-      <ion-input required [(ngModel)]="register.office" name="office" placeholder="Cargo"></ion-input>
+      <ion-input required [(ngModel)]="register.category" name="category" placeholder="Categoria"></ion-input>
     </ion-item>
     <ion-item *ngIf="!id" class="item">
-      <ion-input required type="password" [(ngModel)]="register.password" name="password" placeholder="Senha"></ion-input>
+      <ion-input required [(ngModel)]="register.value" name="value" placeholder="Valor"></ion-input>
     </ion-item>
     <ion-item class="item">
       <ion-input required [(ngModel)]="register.linkImage" name="image" placeholder="Link da imagem"></ion-input>
